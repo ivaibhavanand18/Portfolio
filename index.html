@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Anand | Full-Stack Developer & Software Engineer</title>
+
+    <!-- Meta tags -->
+    <meta name="description"
+        content="Portfolio of Vaibhav Anand - Final Year B.Tech CSE student at BCET, Full-Stack Developer (MERN & Java), and Football Team Captain.">
+    <meta name="theme-color" content="#05070E">
+
+    <!-- Google Fonts: Plus Jakarta Sans (human & appealing body), Outfit (sleek modern display), JetBrains Mono (refined developer mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js for Live Data Analytics Preview -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#040711',
+                            surface: '#0A0F1D',
+                            card: '#0E162B',
+                            cardHover: '#131E3A',
+                            border: 'rgba(56, 189, 248, 0.12)',
+                            borderHover: 'rgba(56, 189, 248, 0.4)',
+                            cyan: '#00F2FE',
+                            cyanGlow: 'rgba(0, 242, 254, 0.25)',
+                            neon: '#00FF87',
+                            neonGlow: 'rgba(0, 255, 135, 0.25)',
+                            purple: '#A855F7',
+                            purpleGlow: 'rgba(168, 85, 247, 0.25)',
+                            amber: '#F59E0B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', '"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+                            '50%': { opacity: '0.6', transform: 'scale(1.05)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Smooth Modern Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #040711;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00F2FE;
+        }
+
+        /* Ambient Background Mesh */
+        .cyber-grid {
+            background-size: 48px 48px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        .glass-panel {
+            background: rgba(14, 22, 43, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 242, 254, 0.35);
+            box-shadow: 0 20px 40px -15px rgba(0, 242, 254, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Matrix Canvas Overlay */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #matrix-canvas.active {
+            opacity: 0.88;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-cyber-bg text-slate-100 font-sans selection:bg-cyber-cyan selection:text-black min-h-screen relative overflow-x-hidden cyber-grid antialiased">
+
+    <!-- Canvas for Hacker Matrix Rain Easter Egg -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Ambient Glowing Orbs in Background -->
+    <div
+        class="fixed top-0 left-1/4 w-[28rem] h-[28rem] bg-cyber-cyan/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse-glow">
+    </div>
+    <div class="fixed bottom-1/4 right-1/4 w-[32rem] h-[32rem] bg-cyber-purple/10 rounded-full blur-[140px] pointer-events-none -z-10 animate-pulse-glow"
+        style="animation-delay: 2s;"></div>
+    <div
+        class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] bg-cyber-neon/5 rounded-full blur-[150px] pointer-events-none -z-10">
+    </div>
+
+    <!-- ==================== TOP NAVIGATION BAR ==================== -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-cyber-bg/85 border-b border-cyber-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Left: Branding -->
+                <div class="flex items-center space-x-3">
+                    <div class="flex space-x-1.5 px-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                    </div>
+                    <a href="#hero"
+                        class="flex items-center space-x-2 text-sm font-display font-bold tracking-tight text-slate-200 hover:text-cyber-cyan transition-colors">
+                        <span class="text-cyber-cyan">Vaibhav</span>
+                        <span class="text-slate-400">Anand</span>
+                        <span
+                            class="text-[11px] bg-cyber-card border border-cyber-border px-2 py-0.5 rounded-full text-slate-400 font-sans font-medium hidden sm:inline">Portfolio</span>
+                    </a>
+                </div>
+
+                <!-- Center: Navigation Links (Clean, human, non-robotic) -->
+                <nav class="hidden md:flex items-center space-x-1 text-sm font-medium text-slate-300">
+                    <a href="#hero"
+                        class="px-3 py-1.5 rounded-lg hover:text-cyber-cyan hover:bg-cyber-surface transition-all">About</a>
+                    <a href="#skills"
+                        class="px-3 py-1.5 rounded-lg hover:text-cyber-cyan hover:bg-cyber-surface transition-all">Skills</a>
+                    <a href="#projects"
+                        class="px-3 py-1.5 rounded-lg hover:text-cyber-cyan hover:bg-cyber-surface transition-all">Projects</a>
+                    <a href="#experience"
+                        class="px-3 py-1.5 rounded-lg hover:text-cyber-cyan hover:bg-cyber-surface transition-all">Experience</a>
+                    <a href="#education"
+                        class="px-3 py-1.5 rounded-lg hover:text-cyber-cyan hover:bg-cyber-surface transition-all">Education</a>
+                    <a href="#terminal"
+                        class="px-3 py-1.5 rounded-lg text-cyber-neon hover:bg-cyber-neon/10 border border-cyber-neon/20 transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-terminal text-xs"></i>
+                        <span>CLI Terminal</span>
+                    </a>
+                </nav>
+
+                <!-- Right: Audio toggle, Status Pill & Contact CTA -->
+                <div class="flex items-center space-x-2.5">
+                    <!-- Audio Sound Effect Toggle -->
+                    <button id="sound-toggle" title="Toggle Mechanical Audio Cues"
+                        class="p-2 rounded-xl bg-cyber-surface border border-cyber-border text-slate-400 hover:text-cyber-cyan hover:border-cyber-cyan transition-all text-xs">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+
+                    <!-- Status Indicator -->
+                    <div
+                        class="hidden lg:flex items-center space-x-2 px-3 py-1 rounded-full bg-cyber-neon/10 border border-cyber-neon/25 text-xs font-medium text-cyber-neon">
+                        <span class="w-2 h-2 rounded-full bg-cyber-neon animate-ping"></span>
+                        <span>Open to Roles</span>
+                    </div>
+
+                    <!-- Direct Connect Button -->
+                    <a href="#contact"
+                        class="px-3.5 py-1.5 bg-gradient-to-r from-cyber-cyan/15 to-cyber-neon/15 hover:from-cyber-cyan hover:to-cyber-neon text-cyber-cyan hover:text-cyber-bg border border-cyber-cyan/40 rounded-xl text-xs font-semibold transition-all shadow-sm">
+                        Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- ==================== HERO BENTO SECTION ==================== -->
+        <section id="hero" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+            <!-- Bento Hero Card (8 cols) -->
+            <div
+                class="lg:col-span-8 glass-panel rounded-3xl p-6 sm:p-10 relative overflow-hidden flex flex-col justify-between">
+                <!-- Top Status Row (Clean Location & Availability - Pill from image removed!) -->
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                    <div
+                        class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyber-surface border border-cyber-border text-xs text-slate-300 font-medium">
+                        <i class="fa-solid fa-location-dot text-cyber-cyan"></i>
+                        <span>Patna, Bihar ➔ Durgapur, West Bengal</span>
+                    </div>
+                    <div
+                        class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyber-neon/10 border border-cyber-neon/25 text-xs font-medium text-cyber-neon">
+                        <span class="w-2 h-2 rounded-full bg-cyber-neon animate-pulse"></span>
+                        <span>Open to Internships & New Grad Roles</span>
+                    </div>
+                </div>
+
+                <!-- Main Headline & Copy -->
+                <div class="space-y-5 my-auto">
+                    <div class="space-y-2">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/20 text-xs text-cyber-cyan font-semibold">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                            <span>Full-Stack & Systems Developer</span>
+                        </div>
+                        <h1
+                            class="text-4xl sm:text-6xl lg:text-7xl font-extrabold font-display tracking-tight text-white leading-tight">
+                            Hi, I'm <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-slate-100 to-cyber-neon">Vaibhav
+                                Anand</span>
+                        </h1>
+                    </div>
+
+                    <h2 class="text-xl sm:text-2xl font-display text-slate-200 font-semibold tracking-tight">
+                        Software Engineer & <span class="text-cyber-neon">Java Specialist</span>
+                    </h2>
+
+                    <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-sans font-normal">
+                        Final-year Computer Science and Engineering student at Bengal College of Engineering and
+                        Technology (MAKAUT). Building scalable full-stack applications across Java and MERN stacks,
+                        real-time analytics engines, and accessible digital platforms. Captain of the BCET college
+                        football team, blending engineering precision with collaborative team strategy.
+                    </p>
+                </div>
+
+                <!-- Quick Action Buttons & Socials -->
+                <div class="pt-8 border-t border-slate-800/80 mt-6 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="#projects"
+                            class="px-5 py-2.5 bg-gradient-to-r from-cyber-cyan to-teal-400 text-black font-semibold text-sm rounded-xl hover:shadow-[0_0_20px_rgba(0,242,254,0.35)] transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-code-fork text-xs"></i>
+                            <span>Explore Projects</span>
+                        </a>
+
+                        <button onclick="triggerTerminalHelp()"
+                            class="px-5 py-2.5 bg-cyber-surface hover:bg-slate-800 border border-cyber-border text-slate-200 font-medium text-sm rounded-xl transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-terminal text-cyber-neon text-xs"></i>
+                            <span>Interactive Terminal</span>
+                        </button>
+
+                        <button onclick="copyToClipboard('ivaibhavanand2018@gmail.com', 'Email copied to clipboard!')"
+                            class="px-4 py-2.5 bg-cyber-surface hover:bg-slate-800 border border-cyber-border text-slate-300 font-medium text-sm rounded-xl transition-all flex items-center gap-2"
+                            title="Copy Email">
+                            <i class="fa-regular fa-copy text-cyber-cyan text-xs"></i>
+                            <span>Copy Email</span>
+                        </button>
+                    </div>
+
+                    <!-- Direct Social Icons -->
+                    <div class="flex items-center space-x-2 text-slate-400">
+                        <a href="https://github.com/ivaibhavanand18" target="_blank"
+                            class="w-10 h-10 rounded-xl bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan flex items-center justify-center transition-all"
+                            title="GitHub Profile">
+                            <i class="fa-brands fa-github text-base"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/anand-vaibhav-" target="_blank" rel="noopener noreferrer"
+                            class="w-10 h-10 rounded-xl bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan flex items-center justify-center transition-all"
+                            title="LinkedIn Profile">
+                            <i class="fa-brands fa-linkedin-in text-base"></i>
+                        </a>
+                        <a href="mailto:ivaibhavanand2018@gmail.com"
+                            class="w-10 h-10 rounded-xl bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan flex items-center justify-center transition-all"
+                            title="Email Direct">
+                            <i class="fa-solid fa-envelope text-base"></i>
+                        </a>
+                        <a href="tel:+917643975490"
+                            class="w-10 h-10 rounded-xl bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan flex items-center justify-center transition-all"
+                            title="Phone Call">
+                            <i class="fa-solid fa-phone text-base"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Stat & Profile Card (4 cols) -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+
+                <!-- Profile Identity Card -->
+                <div class="glass-panel rounded-3xl p-6 relative overflow-hidden flex-1 flex flex-col justify-between">
+                    <div class="flex items-start justify-between">
+                        <div class="relative">
+                            <div
+                                class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-cyber-cyan to-cyber-purple p-[2px] shadow-lg">
+                                <div
+                                    class="w-full h-full bg-cyber-surface rounded-2xl flex items-center justify-center text-3xl font-display text-cyber-cyan font-bold">
+                                    VA
+                                </div>
+                            </div>
+                            <span
+                                class="absolute -bottom-1 -right-1 w-5 h-5 bg-cyber-neon border-2 border-cyber-surface rounded-full flex items-center justify-center text-[10px] text-black font-bold"
+                                title="Status: Online">
+                                ✓
+                            </span>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400 uppercase tracking-wider block font-semibold">Degree
+                                Status</span>
+                            <span class="text-xs font-semibold text-cyber-cyan">Expected 2027</span>
+                        </div>
+                    </div>
+
+                    <div class="my-4 space-y-2">
+                        <h3 class="text-xl font-bold font-display text-white">Vaibhav Anand</h3>
+                        <p class="text-xs text-slate-300 font-medium flex items-center gap-1.5">
+                            <i class="fa-solid fa-graduation-cap text-cyber-neon"></i>
+                            B.Tech in Computer Science and Engineering
+                        </p>
+                        <p class="text-xs text-slate-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-building-columns text-cyber-cyan"></i>
+                            Bengal College of Engineering & Technology
+                        </p>
+                    </div>
+
+                    <!-- Leadership Pill -->
+                    <div class="p-3.5 rounded-2xl bg-cyber-surface/90 border border-cyber-border text-xs space-y-1.5">
+                        <div class="flex items-center justify-between text-cyber-amber font-bold">
+                            <span class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-futbol text-white"></i> Football Captain
+                            </span>
+                            <span
+                                class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-medium border border-amber-500/25">Sports
+                                Leadership</span>
+                        </div>
+                        <p class="text-xs text-slate-300 font-normal leading-relaxed">
+                            Captain of the BCET college football team. Directing squads on the pitch translates into
+                            high-agility engineering leadership, clear communication, and strategy under pressure.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Metrics Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-panel rounded-2xl p-4 text-center">
+                        <div class="text-3xl font-display font-extrabold text-cyber-cyan">4+</div>
+                        <div class="text-xs font-medium text-slate-300 mt-1">Full-Stack Projects</div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-4 text-center">
+                        <div class="text-3xl font-display font-extrabold text-cyber-neon">2x</div>
+                        <div class="text-xs font-medium text-slate-300 mt-1">EduSkills Internships</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== INTERACTIVE TERMINAL EMULATOR SECTION ==================== -->
+        <section id="terminal" class="glass-panel rounded-3xl border border-cyber-border overflow-hidden shadow-2xl">
+            <!-- Terminal Header -->
+            <div
+                class="bg-slate-900/90 px-4 py-3 border-b border-cyber-border flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center space-x-2">
+                    <div class="flex space-x-1.5">
+                        <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-400 font-semibold ml-2">bash - interactive developer
+                        terminal</span>
+                </div>
+                <!-- Quick Command Buttons -->
+                <div class="flex flex-wrap items-center gap-1.5 text-xs font-mono">
+                    <span class="text-slate-500 hidden sm:inline">Try:</span>
+                    <button onclick="runCommand('help')"
+                        class="px-2.5 py-0.5 rounded-lg bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan text-slate-300 transition-colors">help</button>
+                    <button onclick="runCommand('skills')"
+                        class="px-2.5 py-0.5 rounded-lg bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan text-slate-300 transition-colors">skills</button>
+                    <button onclick="runCommand('projects')"
+                        class="px-2.5 py-0.5 rounded-lg bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan text-slate-300 transition-colors">projects</button>
+                    <button onclick="runCommand('experience')"
+                        class="px-2.5 py-0.5 rounded-lg bg-cyber-surface border border-cyber-border hover:border-cyber-cyan hover:text-cyber-cyan text-slate-300 transition-colors">experience</button>
+                    <button onclick="runCommand('matrix')"
+                        class="px-2.5 py-0.5 rounded-lg bg-cyber-surface border border-cyber-neon hover:bg-cyber-neon/20 text-cyber-neon font-bold transition-colors">matrix</button>
+                    <button onclick="runCommand('clear')"
+                        class="px-2.5 py-0.5 rounded-lg bg-cyber-surface border border-cyber-border hover:text-red-400 text-slate-400 transition-colors">clear</button>
+                </div>
+            </div>
+
+            <!-- Terminal Console Area -->
+            <div id="terminal-body"
+                class="p-6 font-mono text-xs sm:text-sm text-slate-200 bg-cyber-bg/95 min-h-[280px] max-h-[420px] overflow-y-auto space-y-3">
+                <div class="text-slate-400">
+                    <pre class="text-cyber-cyan text-[10px] sm:text-xs leading-none select-none font-bold">
+__     __      _ _     _                   _                             _ 
+\ \   / /_ _  (_) |__ | |__   __ ___   __ / \   _ __   __ _ _ __   __| |
+ \ \ / / _` | | | '_ \| '_ \ / _` \ \ / // _ \ | '_ \ / _` | '_ \ / _` |
+  \ V / (_| | | | |_) | | | | (_| |\ V // ___ \| | | | (_| | | | | (_| |
+   \_/ \__,_| |_|_.__/|_| |_|\__,_| \_//_/   \_\_| |_|\__,_|_| |_|\__,_|
+                    </pre>
+                    <p class="text-xs text-slate-400 mt-2">Welcome to Vaibhav Anand's verified developer console.</p>
+                    <p class="text-xs text-cyber-neon">Type <span class="underline font-bold text-white">help</span> to
+                        view all commands or click the command chips above.</p>
+                </div>
+                <div id="terminal-output" class="space-y-2"></div>
+                <!-- Input Prompt Line -->
+                <div class="flex items-center space-x-2 pt-1">
+                    <span class="text-cyber-cyan font-bold shrink-0">vaibhav@dev:~$</span>
+                    <input type="text" id="terminal-input"
+                        class="bg-transparent text-cyber-neon font-mono text-xs sm:text-sm outline-none flex-1 border-none p-0 focus:ring-0"
+                        placeholder="type a command..." autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SKILLS SHOWCASE BENTO ==================== -->
+        <section id="skills" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-cyber-border pb-4">
+                <div>
+                    <span class="text-xs font-semibold text-cyber-cyan uppercase tracking-wider block">Tech
+                        Capabilities</span>
+                    <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">Verified Technical
+                        Skills</h2>
+                </div>
+                <p class="text-sm text-slate-400 font-sans">Strictly derived from verified academic projects &
+                    professional internships</p>
+            </div>
+
+            <!-- Bento Grid of Categorized Skills -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- 1. Languages -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4 hover:border-cyber-cyan transition-all">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-code text-cyber-cyan"></i>
+                            Programming Languages
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/20 px-2.5 py-0.5 rounded-full">Core</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium">
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Java
+                            (Core & Adv)</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">JavaScript
+                            (ES6+)</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Python
+                            3.x</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">SQL</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">HTML5
+                            & CSS3</span>
+                    </div>
+                </div>
+
+                <!-- 2. Frontend Engineering -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4 hover:border-cyber-cyan transition-all">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                            <i class="fa-brands fa-react text-cyber-cyan"></i>
+                            Frontend Development
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/20 px-2.5 py-0.5 rounded-full">SPA
+                            & UI</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium">
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">React.js
+                            (JSX/Hooks)</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Context
+                            API & Redux Toolkit</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">React
+                            Router</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Tailwind
+                            CSS & Bootstrap</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">jQuery</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Chart.js</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Web
+                            Speech & Audio APIs</span>
+                    </div>
+                </div>
+
+                <!-- 3. Backend & APIs -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4 hover:border-cyber-cyan transition-all">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-server text-cyber-neon"></i>
+                            Backend & Enterprise APIs
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-cyber-neon bg-cyber-neon/10 border border-cyber-neon/20 px-2.5 py-0.5 rounded-full">Services</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium">
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Node.js
+                            & Express.js</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Spring
+                            Framework</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Spring
+                            Boot</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">FastAPI</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">WebSockets
+                            (Real-Time)</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">RESTful
+                            APIs</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">JWT
+                            Authentication</span>
+                    </div>
+                </div>
+
+                <!-- 4. Databases & ORM -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4 hover:border-cyber-cyan transition-all">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-database text-cyber-purple"></i>
+                            Databases & ORM
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-cyber-purple bg-cyber-purple/10 border border-cyber-purple/20 px-2.5 py-0.5 rounded-full">Persistence</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium">
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">MongoDB
+                            & Mongoose</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">PostgreSQL
+                            / Supabase</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">MySQL</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Hibernate
+                            ORM</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">DBMS
+                            Concepts</span>
+                    </div>
+                </div>
+
+                <!-- 5. Tools & Systems -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4 hover:border-cyber-cyan transition-all">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-toolbox text-cyber-amber"></i>
+                            Tools & Systems
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-cyber-amber bg-cyber-amber/10 border border-cyber-amber/20 px-2.5 py-0.5 rounded-full">Workflow</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium">
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Git
+                            & GitHub</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">VS
+                            Code</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Vite</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Object-Oriented
+                            Programming (OOP)</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Data
+                            Analysis & Forensic Tech</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Local
+                            Storage</span>
+                    </div>
+                </div>
+
+                <!-- 6. Leadership & Team Strategy -->
+                <div class="glass-panel rounded-2xl p-6 space-y-4 hover:border-cyber-cyan transition-all">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-display font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-users text-white"></i>
+                            Leadership & Team Dynamics
+                        </h3>
+                        <span
+                            class="text-xs font-semibold text-slate-200 bg-slate-700/60 border border-slate-600 px-2.5 py-0.5 rounded-full">Proven</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-medium">
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Team
+                            Captaincy (BCET Football)</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Strategy
+                            Under Pressure</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Collaborative
+                            Problem-Solving</span>
+                        <span
+                            class="px-3 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-200">Agile
+                            Engineering Alignment</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== FEATURED PROJECTS BENTO GRID ==================== -->
+        <section id="projects" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-cyber-border pb-4">
+                <div>
+                    <span class="text-xs font-semibold text-cyber-cyan uppercase tracking-wider block">Production
+                        Work</span>
+                    <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">Featured Engineering
+                        Projects</h2>
+                </div>
+                <!-- Filter Chips -->
+                <div class="flex flex-wrap items-center gap-2 text-xs font-semibold">
+                    <button onclick="filterProjects('all')"
+                        class="filter-btn active px-3.5 py-1.5 rounded-xl bg-cyber-cyan text-black shadow-sm">All
+                        (4)</button>
+                    <button onclick="filterProjects('fullstack')"
+                        class="filter-btn px-3.5 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-300 hover:text-white transition-colors">Full-Stack</button>
+                    <button onclick="filterProjects('python')"
+                        class="filter-btn px-3.5 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-300 hover:text-white transition-colors">Python
+                        & Real-Time</button>
+                    <button onclick="filterProjects('accessibility')"
+                        class="filter-btn px-3.5 py-1.5 rounded-xl bg-cyber-surface border border-cyber-border text-slate-300 hover:text-white transition-colors">Assistive
+                        Tech</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+                <!-- PROJECT 1: Major Project - Real-Time Data Analytics Dashboard (8 cols) -->
+                <div class="project-card lg:col-span-8 glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+                    data-category="python">
+                    <div>
+                        <!-- Header / Meta -->
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 font-semibold uppercase">
+                                    ★ Final Year Major Project
+                                </span>
+                                <span class="text-xs text-slate-400 font-medium">BCET CSE Group 17 (3 Members)</span>
+                            </div>
+                            <span class="text-xs text-slate-400 font-medium">2026–2027</span>
+                        </div>
+
+                        <!-- Title & Description -->
+                        <h3
+                            class="text-2xl sm:text-3xl font-display font-bold text-white mb-2 flex flex-wrap items-center gap-2.5">
+                            Real-Time Data Analytics Dashboard
+                            <span
+                                class="text-xs font-sans text-cyber-cyan border border-cyber-cyan/30 px-2.5 py-0.5 rounded-full font-medium">FastAPI
+                                + WebSockets</span>
+                        </h3>
+                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-sans mb-5 font-normal">
+                            Engineered an end-to-end real-time analytics streaming engine for e-commerce sales activity.
+                            Utilizes Python and the Faker library to synthesize realistic order events (product, price,
+                            quantity, category, time) streamed over persistent WebSockets, stored in PostgreSQL /
+                            Supabase, and rendered live on Chart.js summary dashboards.
+                        </p>
+
+                        <!-- Simulated Live Metric Console -->
+                        <div class="bg-cyber-bg/90 rounded-2xl p-4 border border-cyber-border my-4 space-y-3 font-mono">
+                            <div
+                                class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-2">
+                                <span class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-cyber-neon animate-pulse"></span>
+                                    <span class="font-sans font-medium text-slate-300">STREAM STATUS: ONLINE</span>
+                                </span>
+                                <span class="text-cyber-cyan font-mono text-[11px]">ws://api.ecommerce/v1/orders</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-center">
+                                <div>
+                                    <span class="text-[11px] text-slate-400 uppercase font-sans font-medium block">Total
+                                        Sales</span>
+                                    <span id="live-sales-counter"
+                                        class="text-base sm:text-lg font-bold text-white font-mono">$48,290.50</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-[11px] text-slate-400 uppercase font-sans font-medium block">Orders
+                                        Streamed</span>
+                                    <span id="live-orders-counter"
+                                        class="text-base sm:text-lg font-bold text-cyber-cyan font-mono">1,482</span>
+                                </div>
+                                <div>
+                                    <span
+                                        class="text-[11px] text-slate-400 uppercase font-sans font-medium block">Ingest
+                                        Latency</span>
+                                    <span class="text-base sm:text-lg font-bold text-cyber-neon font-mono">12 ms</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tech tags -->
+                        <div class="flex flex-wrap gap-2 text-xs font-medium pt-2">
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">Python
+                                3.x</span>
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">FastAPI</span>
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">PostgreSQL
+                                / Supabase</span>
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">WebSockets</span>
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">Chart.js</span>
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">Faker</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Action -->
+                    <div
+                        class="pt-6 border-t border-slate-800/80 mt-6 flex items-center justify-between text-xs font-medium">
+                        <span class="text-slate-400">Faculty Guide: Mrs. Bidisha Roy (BCET CSE)</span>
+                        <button onclick="openModal('analytics')"
+                            class="text-cyber-cyan hover:underline flex items-center gap-1.5 font-semibold text-sm">
+                            View System Spec <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: SAHPATHI (4 cols) -->
+                <div class="project-card lg:col-span-4 glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+                    data-category="accessibility">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="px-3 py-1 rounded-full text-xs bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 font-semibold uppercase">
+                                Assistive Social Impact
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium">2026</span>
+                        </div>
+
+                        <h3 class="text-2xl font-display font-bold text-white mb-1">
+                            SAHPATHI (सहपाठी)
+                        </h3>
+                        <p class="text-xs text-cyber-cyan font-medium mb-3">Connecting Visually Impaired Students with
+                            Scribes</p>
+
+                        <p class="text-sm text-slate-300 leading-relaxed font-sans mb-4 font-normal">
+                            Accessibility-first digital platform aligning with RPwD Act 2016 and MoSJE guidelines
+                            (+20m/h compensatory time). Features WCAG AAA High Contrast modes (Yellow/Cyan on Black),
+                            hands-free voice commands, Web Speech synthesis "Read Aloud", and automated MoSJE Form-I
+                            Scribe Declaration generation.
+                        </p>
+
+                        <!-- Accessibility Badges Preview -->
+                        <div class="p-3.5 bg-cyber-surface rounded-2xl border border-cyber-border space-y-2 text-xs">
+                            <div class="flex justify-between items-center text-slate-300 font-medium">
+                                <span>WCAG Standard:</span>
+                                <span class="text-cyber-neon font-bold">AAA Compliant</span>
+                            </div>
+                            <div class="flex justify-between items-center text-slate-300 font-medium">
+                                <span>Speech Synthesis:</span>
+                                <span class="text-cyber-cyan font-bold">Web Speech API</span>
+                            </div>
+                            <div class="flex justify-between items-center text-slate-300 font-medium">
+                                <span>Voice Navigation:</span>
+                                <span class="text-cyber-purple font-bold">Enabled</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pt-6 border-t border-slate-800/80 mt-6 flex items-center justify-between text-xs font-medium">
+                        <span class="text-slate-400">React 18 • Tailwind • Vite</span>
+                        <button onclick="openModal('sahpathi')"
+                            class="text-cyber-cyan hover:underline font-semibold text-sm">
+                            Details <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3: Online Doctor Appointment System (ODAS) (6 cols) -->
+                <div class="project-card lg:col-span-6 glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+                    data-category="fullstack">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="px-3 py-1 rounded-full text-xs bg-cyber-purple/10 text-cyber-purple border border-cyber-purple/30 font-semibold uppercase">
+                                Full-Stack Healthcare Platform
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium">2025</span>
+                        </div>
+
+                        <h3 class="text-2xl font-display font-bold text-white mb-1">
+                            Online Doctor Appointment System (ODAS)
+                        </h3>
+                        <p class="text-xs text-cyber-purple font-medium mb-3">Node.js • Express.js • MongoDB •
+                            JavaScript (3-Person Team)</p>
+
+                        <p class="text-sm text-slate-300 leading-relaxed font-sans mb-4 font-normal">
+                            Built a multi-tiered healthcare booking platform with four role-based dashboards (Patient,
+                            Doctor, Pharmacist, Admin) and real-time slot management that programmatically prevents
+                            double-booking. Engineered a weighted-average rating calculation in Express.js so reviews
+                            update incrementally without single-outlier skewing.
+                        </p>
+
+                        <!-- Code Architecture Pill -->
+                        <div
+                            class="bg-cyber-bg/80 rounded-2xl p-3.5 border border-cyber-border text-xs text-slate-300 space-y-1">
+                            <span class="text-cyber-purple font-semibold block text-xs">Appointment Lifecycle State
+                                Machine:</span>
+                            <div class="font-mono text-cyber-neon text-xs">Unpaid ➔ Paid ➔ Prescribed ➔ Dispensed ➔
+                                Reviewed</div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pt-6 border-t border-slate-800/80 mt-6 flex items-center justify-between text-xs font-medium">
+                        <span class="text-slate-400">Mongoose $or Queries • State Engine</span>
+                        <button onclick="openModal('odas')"
+                            class="text-cyber-purple hover:underline font-semibold text-sm">
+                            Inspect Architecture <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PROJECT 4: Personal Finance Dashboard (6 cols) -->
+                <div class="project-card lg:col-span-6 glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
+                    data-category="fullstack">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="px-3 py-1 rounded-full text-xs bg-cyber-amber/10 text-cyber-amber border border-cyber-amber/30 font-semibold uppercase">
+                                Interactive Web Dashboard
+                            </span>
+                            <span class="text-xs text-slate-400 font-medium">2024</span>
+                        </div>
+
+                        <h3 class="text-2xl font-display font-bold text-white mb-1">
+                            Personal Finance Dashboard
+                        </h3>
+                        <p class="text-xs text-cyber-amber font-medium mb-3">HTML5 • CSS3 • JavaScript (ES6+) • Chart.js
+                        </p>
+
+                        <p class="text-sm text-slate-300 leading-relaxed font-sans mb-4 font-normal">
+                            Engineered a responsive financial analytics application tracking total balance, monthly
+                            earnings, spending metrics, and savings goals. Leveraged Chart.js for dynamic category
+                            breakdowns (Food, Utilities, Entertainment, Savings) and browser Local Storage to guarantee
+                            zero-loss session persistence.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 text-xs font-medium">
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">Local
+                                Storage Sync</span>
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">Chart.js
+                                Visualizations</span>
+                            <span
+                                class="px-3 py-1 rounded-lg bg-cyber-surface border border-cyber-border text-slate-300">Responsive
+                                Grid</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="pt-6 border-t border-slate-800/80 mt-6 flex items-center justify-between text-xs font-medium">
+                        <a href="https://github.com/ivaibhavanand18/finance-dashboard.git" target="_blank"
+                            class="text-cyber-cyan hover:underline flex items-center gap-1.5 font-semibold text-sm">
+                            <i class="fa-brands fa-github"></i> Repository
+                        </a>
+                        <button onclick="openModal('finance')"
+                            class="text-cyber-amber hover:underline font-semibold text-sm">
+                            Details <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== EXPERIENCE & INTERNSHIPS TIMELINE ==================== -->
+        <section id="experience" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-cyber-border pb-4">
+                <div>
+                    <span class="text-xs font-semibold text-cyber-cyan uppercase tracking-wider block">Verified Track
+                        Record</span>
+                    <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">Experience & Practical
+                        Internships</h2>
+                </div>
+                <p class="text-sm text-slate-400 font-sans">Credentials validated via AICTE, EduSkills Academy &
+                    Deloitte</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- 1. MERN Stack Intern -->
+                <div
+                    class="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start text-xs font-medium mb-2">
+                            <span class="text-cyber-neon font-bold">10/2026 – 12/2026</span>
+                            <span
+                                class="px-2.5 py-0.5 rounded-full bg-cyber-neon/10 text-cyber-neon border border-cyber-neon/30 text-[11px] font-semibold">Ongoing</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-display text-white">MERN Full Stack Developer Intern</h3>
+                        <p class="text-xs font-semibold text-cyber-cyan mt-0.5">AICTE & EduSkills Virtual Internship</p>
+                        <p class="text-[11px] text-slate-500 font-mono mb-3">Ref: C19Y2026M101608516 • ID:
+                            STU6a80430e76ca91786790670</p>
+
+                        <ul
+                            class="text-xs sm:text-sm text-slate-300 space-y-2 font-sans list-disc list-inside leading-relaxed font-normal">
+                            <li>8-week structured learning curriculum in full-stack MERN engineering.</li>
+                            <li>Applied React Hooks, Context API, Redux Toolkit, and React Router navigation.</li>
+                            <li>Engineered secure REST APIs with Node.js/Express.js, JWT authentication, and
+                                MongoDB/Mongoose.</li>
+                            <li>Capstone: Full-stack e-commerce platform with product catalog and shopping cart.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 text-xs text-slate-400 font-medium">
+                        Domain: MERN Full Stack Development + Project
+                    </div>
+                </div>
+
+                <!-- 2. Java Full Stack Intern -->
+                <div
+                    class="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start text-xs font-medium mb-2">
+                            <span class="text-cyber-cyan font-bold">08/2026 – 10/2026</span>
+                            <span
+                                class="px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30 text-[11px] font-semibold">Completed</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-display text-white">Java Full Stack Developer Intern</h3>
+                        <p class="text-xs font-semibold text-cyber-cyan mt-0.5">AICTE & EduSkills Virtual Internship</p>
+                        <p class="text-[11px] text-slate-500 font-mono mb-3">Issued: Oct 06, 2026 • Certificate ID:
+                            2026-11678DF547</p>
+
+                        <ul
+                            class="text-xs sm:text-sm text-slate-300 space-y-2 font-sans list-disc list-inside leading-relaxed font-normal">
+                            <li>Completed comprehensive 8-week Java enterprise application program.</li>
+                            <li>Demonstrated proficiency in Core Java, Advanced Java, Spring Boot, and Hibernate ORM.
+                            </li>
+                            <li>Engineered relational data workflows using MySQL and version control with Git.</li>
+                            <li>Weekly assessments on multi-threading, JDBC, Servlets, and dependency injection.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 text-xs text-slate-400 font-medium">
+                        Credential ID: 2026-11678DF547
+                    </div>
+                </div>
+
+                <!-- 3. Deloitte Job Simulation -->
+                <div
+                    class="glass-panel rounded-3xl p-6 sm:p-7 space-y-4 relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start text-xs font-medium mb-2">
+                            <span class="text-cyber-purple font-bold">August 13, 2026</span>
+                            <span
+                                class="px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/30 text-[11px] font-semibold">Certified</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-display text-white">Data Analytics Job Simulation</h3>
+                        <p class="text-xs font-semibold text-cyber-purple mt-0.5">Deloitte (via Forage)</p>
+                        <p class="text-[11px] text-slate-500 font-sans mb-3">Issued by Tina McCreery, Chief HR Officer,
+                            Deloitte</p>
+
+                        <ul
+                            class="text-xs sm:text-sm text-slate-300 space-y-2 font-sans list-disc list-inside leading-relaxed font-normal">
+                            <li>Completed hands-on practical tasks evaluating corporate data analytics scenarios.</li>
+                            <li>Conducted forensic technology simulations investigating structured enterprise records.
+                            </li>
+                            <li>Enrolment Verification Code: <span
+                                    class="font-mono text-cyber-cyan text-xs">6a7dcf75cca7d67fa60a83ec</span>.</li>
+                            <li>User Verification Code: <span
+                                    class="font-mono text-cyber-cyan text-xs">6a7dce6bcca7d67fa60a31f8</span>.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800 text-xs text-slate-400 font-medium">
+                        Domain: Data Analysis & Forensic Technology
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== EDUCATION & BEYOND THE SCREEN ==================== -->
+        <section id="education" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+            <!-- Education History (7 cols) -->
+            <div class="lg:col-span-7 glass-panel rounded-3xl p-6 sm:p-8 space-y-6">
+                <div class="border-b border-cyber-border pb-3">
+                    <span class="text-xs font-semibold text-cyber-cyan uppercase tracking-wider block">Academic
+                        Foundation</span>
+                    <h3 class="text-2xl font-display font-bold text-white mt-0.5">Education & Academic Record</h3>
+                </div>
+
+                <div class="space-y-6 relative border-l-2 border-cyber-border pl-6 ml-2 font-sans">
+                    <!-- College -->
+                    <div class="relative">
+                        <span
+                            class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-cyber-cyan border-4 border-cyber-bg"></span>
+                        <div class="flex items-center justify-between text-xs font-semibold text-cyber-cyan">
+                            <span>2023 – 2027 (Final Year, Expected 2027)</span>
+                            <span class="text-slate-400 font-normal">Durgapur, West Bengal</span>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-bold text-white font-display mt-0.5">
+                            Bachelor of Technology (B.Tech) – Computer Science and Engineering
+                        </h4>
+                        <p class="text-xs sm:text-sm text-slate-300">Bengal College of Engineering and Technology
+                            (BCET), Durgapur</p>
+                        <p class="text-xs text-slate-500 mt-0.5">Affiliated with Maulana Abul Kalam Azad University of
+                            Technology (MAKAUT)</p>
+                    </div>
+
+                    <!-- High School -->
+                    <div class="relative">
+                        <span
+                            class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-cyber-purple border-4 border-cyber-bg"></span>
+                        <div class="flex items-center justify-between text-xs font-semibold text-cyber-purple">
+                            <span>2020 – 2022</span>
+                            <span class="text-slate-400 font-normal">Patna, Bihar</span>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-bold text-white font-display mt-0.5">
+                            High School Certificate
+                        </h4>
+                        <p class="text-xs sm:text-sm text-slate-300">Himalayan Residential School, Patna</p>
+                    </div>
+
+                    <!-- Primary/Secondary School -->
+                    <div class="relative">
+                        <span
+                            class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-600 border-4 border-cyber-bg"></span>
+                        <div class="flex items-center justify-between text-xs font-semibold text-slate-400">
+                            <span>April 2008 – March 2020</span>
+                            <span class="text-slate-400 font-normal">Patna, Bihar</span>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-bold text-white font-display mt-0.5">
+                            Schooling
+                        </h4>
+                        <p class="text-xs sm:text-sm text-slate-300">Don Bosco Academy, Patna</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beyond the Code: Captaincy & Hobbies (5 cols) -->
+            <div class="lg:col-span-5 glass-panel rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                <div>
+                    <div class="border-b border-cyber-border pb-3 mb-4">
+                        <span class="text-xs font-semibold text-cyber-neon uppercase tracking-wider block">Life &
+                            Leadership</span>
+                        <h3 class="text-2xl font-display font-bold text-white mt-0.5">Beyond the Screen</h3>
+                    </div>
+
+                    <!-- Football Captain Banner -->
+                    <div
+                        class="p-5 rounded-2xl bg-gradient-to-br from-cyber-surface to-slate-900 border border-cyber-border space-y-2 mb-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-cyber-amber font-bold flex items-center gap-2">
+                                <i class="fa-solid fa-trophy"></i> Sports Leadership
+                            </span>
+                            <span
+                                class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-medium">Captain</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white font-display">BCET College Football Team Captain</h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans font-normal">
+                            "Leading a sports team has taught me invaluable lessons in communication, strategy under
+                            pressure, and collaborative problem-solving—skills that translate directly into agile
+                            engineering environments."
+                        </p>
+                    </div>
+
+                    <!-- Personal Interests List -->
+                    <div class="space-y-3 text-xs">
+                        <span class="text-slate-400 uppercase tracking-wider block font-semibold text-[11px]">Verified
+                            Personal Hobbies:</span>
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <div
+                                class="p-3.5 rounded-2xl bg-cyber-surface border border-cyber-border text-center space-y-1.5 hover:border-cyber-cyan transition-colors">
+                                <i class="fa-solid fa-futbol text-cyber-cyan text-lg"></i>
+                                <span class="block text-slate-200 font-medium">Football</span>
+                            </div>
+                            <div
+                                class="p-3.5 rounded-2xl bg-cyber-surface border border-cyber-border text-center space-y-1.5 hover:border-cyber-neon transition-colors">
+                                <i class="fa-solid fa-camera text-cyber-neon text-lg"></i>
+                                <span class="block text-slate-200 font-medium">Photography</span>
+                            </div>
+                            <div
+                                class="p-3.5 rounded-2xl bg-cyber-surface border border-cyber-border text-center space-y-1.5 hover:border-cyber-purple transition-colors">
+                                <i class="fa-solid fa-microphone-lines text-cyber-purple text-lg"></i>
+                                <span class="block text-slate-200 font-medium">Singing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="p-3.5 rounded-2xl bg-cyber-surface/60 border border-cyber-border text-xs text-slate-400 font-medium flex items-center justify-between">
+                    <span>Hometown: Patna, Bihar</span>
+                    <span class="text-cyber-cyan font-semibold">Campus: Durgapur, WB</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONTACT & TRANSMISSION CONSOLE ==================== -->
+        <section id="contact"
+            class="glass-panel rounded-3xl p-6 sm:p-10 border border-cyber-cyan/30 relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Contact Info (6 cols) -->
+                <div class="lg:col-span-6 space-y-4">
+                    <span class="text-xs font-semibold text-cyber-cyan uppercase tracking-wider block">Get In
+                        Touch</span>
+                    <h2 class="text-3xl sm:text-4xl font-display font-extrabold text-white">Let's Build Something
+                        Impactful.</h2>
+                    <p class="text-sm sm:text-base text-slate-300 font-sans leading-relaxed font-normal">
+                        Currently open to internships, graduate engineering roles, and full-stack software development
+                        opportunities. Reach out via email, phone, or direct transmission.
+                    </p>
+
+                    <div class="space-y-3 pt-2 text-xs sm:text-sm text-slate-300">
+                        <div
+                            class="flex items-center space-x-3 p-3.5 rounded-2xl bg-cyber-surface border border-cyber-border hover:border-cyber-cyan transition-colors">
+                            <i class="fa-solid fa-envelope text-cyber-cyan text-base"></i>
+                            <div class="flex-1">
+                                <span class="text-xs text-slate-400 block font-normal">Direct Email</span>
+                                <a href="mailto:ivaibhavanand2018@gmail.com"
+                                    class="hover:text-cyber-cyan font-medium">ivaibhavanand2018@gmail.com</a>
+                            </div>
+                            <button onclick="copyToClipboard('ivaibhavanand2018@gmail.com', 'Email copied!')"
+                                class="text-slate-400 hover:text-cyber-cyan text-sm p-1.5" title="Copy email">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <div
+                            class="flex items-center space-x-3 p-3.5 rounded-2xl bg-cyber-surface border border-cyber-border hover:border-cyber-cyan transition-colors">
+                            <i class="fa-solid fa-phone text-cyber-neon text-base"></i>
+                            <div class="flex-1">
+                                <span class="text-xs text-slate-400 block font-normal">Phone / Mobile</span>
+                                <a href="tel:+917643975490" class="hover:text-cyber-neon font-medium">+91 76439
+                                    75490</a>
+                            </div>
+                            <button onclick="copyToClipboard('+917643975490', 'Phone number copied!')"
+                                class="text-slate-400 hover:text-cyber-neon text-sm p-1.5" title="Copy phone number">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <div
+                            class="flex items-center space-x-3 p-3.5 rounded-2xl bg-cyber-surface border border-cyber-border hover:border-cyber-cyan transition-colors">
+                            <i class="fa-brands fa-linkedin text-cyber-cyan text-base"></i>
+                            <div class="flex-1">
+                                <span class="text-xs text-slate-400 block font-normal">LinkedIn Profile</span>
+                                <a href="https://www.linkedin.com/in/anand-vaibhav-" target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="hover:text-cyber-cyan font-medium">linkedin.com/in/anand-vaibhav-</a>
+                            </div>
+                            <a href="https://www.linkedin.com/in/anand-vaibhav-" target="_blank"
+                                rel="noopener noreferrer" class="text-slate-400 hover:text-cyber-cyan text-sm p-1.5"
+                                title="Open LinkedIn Profile">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fast Mail Composer (6 cols) -->
+                <div class="lg:col-span-6 bg-cyber-bg/95 p-6 sm:p-7 rounded-3xl border border-cyber-border space-y-4">
+                    <div
+                        class="flex items-center justify-between text-xs text-slate-300 font-semibold border-b border-slate-800 pb-2.5">
+                        <span>Direct Communication Console</span>
+                        <span class="text-cyber-cyan font-bold">READY</span>
+                    </div>
+
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)"
+                        class="space-y-3.5 text-xs sm:text-sm">
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1">Your Name / Organization</label>
+                            <input type="text" id="sender-name" required placeholder="e.g. Recruiter / Engineering Lead"
+                                class="w-full bg-cyber-surface border border-cyber-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyber-cyan text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1">Your Email</label>
+                            <input type="email" id="sender-email" required placeholder="name@company.com"
+                                class="w-full bg-cyber-surface border border-cyber-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyber-cyan text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1">Message / Role Opportunity</label>
+                            <textarea id="sender-message" rows="3" required
+                                placeholder="Hi Vaibhav, we are reviewing your profile for an engineering role..."
+                                class="w-full bg-cyber-surface border border-cyber-border rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-cyber-cyan text-sm"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full py-3 bg-gradient-to-r from-cyber-cyan to-teal-400 text-black font-semibold text-sm rounded-xl hover:shadow-[0_0_20px_rgba(0,242,254,0.35)] transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            <span>Send Transmission</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="border-t border-cyber-border bg-cyber-bg py-8 mt-12 text-xs text-slate-400">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans">
+            <div class="flex items-center space-x-2">
+                <span class="text-cyber-cyan font-bold">Vaibhav Anand</span>
+                <span>• Full-Stack Developer & Software Engineer</span>
+            </div>
+            <div>
+                <span>© 2026 Vaibhav Anand • Verified Academic & Project Portfolio</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODAL OVERLAY (FOR DEEP-DIVE INSPECTION) ==================== -->
+    <div id="project-modal"
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div
+            class="glass-panel bg-cyber-surface rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto border border-cyber-cyan/50 p-6 sm:p-8 space-y-6 relative shadow-2xl">
+            <!-- Close Button -->
+            <button onclick="closeModal()"
+                class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modal-content" class="space-y-4">
+                <!-- Dynamically injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+    <div id="toast"
+        class="fixed bottom-6 right-6 z-50 bg-cyber-card border border-cyber-cyan text-white px-4 py-3 rounded-2xl shadow-2xl text-xs sm:text-sm font-medium flex items-center space-x-2.5 transition-all duration-300 opacity-0 pointer-events-none translate-y-4">
+        <i class="fa-solid fa-circle-check text-cyber-neon text-sm"></i>
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <!-- ==================== JAVASCRIPT CONTROLLERS ==================== -->
+    <script>
+        // Audio Synthesizer (Web Audio API) for realistic mechanical click earcons
+        let audioEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playKeyClick(type = 'click') {
+            if (!audioEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                const now = ctx.currentTime;
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(1200, now + 0.04);
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                    osc.start(now);
+                    osc.stop(now + 0.04);
+                } else if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.setValueAtTime(880, now + 0.08);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+                    osc.start(now);
+                    osc.stop(now + 0.16);
+                }
+            } catch (e) { }
+        }
+
+        // Toggle Sound Cues
+        document.getElementById('sound-toggle').addEventListener('click', function () {
+            audioEnabled = !audioEnabled;
+            this.innerHTML = audioEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark"></i>';
+            showToast(audioEnabled ? 'Terminal audio cues enabled' : 'Terminal audio cues muted');
+        });
+
+        // Toast feedback
+        function showToast(msg) {
+            playKeyClick('success');
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                toast.classList.remove('opacity-100', 'translate-y-0');
+            }, 3000);
+        }
+
+        // Copy to clipboard helper
+        function copyToClipboard(text, successMsg) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMsg);
+            }).catch(() => {
+                showToast('Copied: ' + text);
+            });
+        }
+
+        // Filter projects
+        function filterProjects(category) {
+            playKeyClick('click');
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-cyber-cyan', 'text-black', 'shadow-sm');
+                btn.classList.add('bg-cyber-surface', 'text-slate-300');
+            });
+            event.target.classList.add('bg-cyber-cyan', 'text-black', 'shadow-sm');
+            event.target.classList.remove('bg-cyber-surface', 'text-slate-300');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Project Deep-Dive Modal Data
+        const projectData = {
+            analytics: {
+                title: "Real-Time Data Analytics Dashboard for E-Commerce Sales",
+                badge: "B.Tech Final Year Major Project (Batch 2023-2027) • Group 17",
+                overview: "This project solves the challenge of processing and understanding large volumes of continuous e-commerce transactional data. The system utilizes Python to generate real-time sample orders containing product, price, quantity, category, and timestamp. These orders are received and processed by a FastAPI backend, recorded into a PostgreSQL/Supabase database, and streamed live to an interactive frontend via WebSockets.",
+                team: "Tanay Sinha, Riyan Akbar, Vaibhav Anand (Faculty Guide: Mrs. Bidisha Roy)",
+                specs: [
+                    "Language: Python 3.x",
+                    "Backend Web Framework: FastAPI",
+                    "Database: PostgreSQL / Supabase",
+                    "Streaming Protocol: WebSockets",
+                    "Order Synthesis: Faker Python Library",
+                    "Frontend: HTML, CSS, JavaScript, Chart.js"
+                ],
+                codeSnippet: `@app.websocket("/ws/orders")
+async def stream_orders(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        order = generate_fake_order() # Faker: id, price, category
+        await db.save_order(order)    # PostgreSQL / Supabase
+        await websocket.send_json(order)
+        await asyncio.sleep(0.5)`
+            },
+            sahpathi: {
+                title: "SAHPATHI (सहपाठी) – Connecting Visually Impaired Students with Scribes",
+                badge: "Accessibility-Focused Digital Platform • Social Impact Initiative",
+                overview: "Sahpathi solves the difficulty visually impaired students face when arranging verified examination scribes. Built in strict accordance with the RPwD Act 2016 and MoSJE guidelines (+20 mins/hour compensatory time). Features smart match by technical subject stream, audio bio narration, and automated MoSJE Form-I Scribe Declaration generation.",
+                team: "Vaibhav Anand (Lead Developer)",
+                specs: [
+                    "Framework: React 18, Vite",
+                    "Styling: Tailwind CSS with WCAG AAA High Contrast Themes",
+                    "Speech Synthesis: Web Speech API ('Read Aloud' screen reader)",
+                    "Speech Recognition: Hands-free voice assistant",
+                    "Auditory Earcons: Web Audio API chimes"
+                ],
+                codeSnippet: `// WCAG AAA High Contrast Color Palettes
+const themes = {
+  'standard': { bg: '#F7F4EA', text: '#142A43', accent: '#087E8B' },
+  'hc-yellow': { bg: '#000000', text: '#FFFF00', accent: '#FFFF00' },
+  'hc-cyan': { bg: '#000000', text: '#00FFFF', accent: '#00FFFF' }
+};`
+            },
+            odas: {
+                title: "Online Doctor Appointment System (ODAS)",
+                badge: "Full-Stack Healthcare Architecture (2025)",
+                overview: "Full-stack appointment scheduling platform featuring 4 role-based dashboards (Patient, Doctor, Pharmacist, Admin). Implements real-time slot conflict detection that programmatically eliminates double-booking.",
+                team: "Team of 3",
+                specs: [
+                    "Runtime: Node.js & Express.js",
+                    "Database: MongoDB with Mongoose ORM",
+                    "Rating Engine: Incremental weighted-average API",
+                    "State Machine: Unpaid ➔ Paid ➔ Prescribed ➔ Dispensed ➔ Reviewed",
+                    "Query Optimization: Standardized Mongoose $or ID handling"
+                ],
+                codeSnippet: `// Non-skewed incremental weighted-average review formula
+doctor.totalReviews += 1;
+doctor.aggregateRating = 
+  ((doctor.aggregateRating * (doctor.totalReviews - 1)) + newRating) 
+  / doctor.totalReviews;
+await doctor.save();`
+            },
+            finance: {
+                title: "Personal Finance Dashboard",
+                badge: "Frontend Web Application (2024)",
+                overview: "Responsive personal financial tracking interface that helps users log, filter, and visualize daily income, expenditures, and net savings. Utilizes Chart.js for dynamic categorical breakdowns and Local Storage to persist records across sessions without database overhead.",
+                team: "Vaibhav Anand",
+                specs: [
+                    "Tech: HTML5, CSS3 (Flexbox/Grid), Modern JavaScript (ES6+)",
+                    "Data Persistence: Browser Local Storage",
+                    "Data Visualizations: Chart.js Doughnut & Bar graphs",
+                    "Repo: github.com/ivaibhavanand18/finance-dashboard.git"
+                ],
+                codeSnippet: `// Local Storage Sync Engine
+function saveTransactions(transactions) {
+    localStorage.setItem('user_finance_data', JSON.stringify(transactions));
+    updateChartBreakdown(transactions);
+}`
+            }
+        };
+
+        function openModal(key) {
+            playKeyClick('click');
+            const data = projectData[key];
+            if (!data) return;
+
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+
+            content.innerHTML = `
+                <div>
+                    <span class="text-xs font-semibold text-cyber-cyan uppercase tracking-wider">${data.badge}</span>
+                    <h3 class="text-2xl font-display font-bold text-white mt-1">${data.title}</h3>
+                </div>
+                <p class="text-sm text-slate-300 leading-relaxed font-sans font-normal">${data.overview}</p>
+                <div>
+                    <h4 class="text-xs font-semibold text-cyber-neon uppercase tracking-wider mb-2">Technical Specifications</h4>
+                    <ul class="text-xs sm:text-sm font-sans text-slate-300 space-y-1 list-disc list-inside">
+                        ${data.specs.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-semibold text-cyber-purple uppercase tracking-wider mb-2">Architectural Code Implementation</h4>
+                    <pre class="bg-cyber-bg p-3.5 rounded-2xl border border-cyber-border text-xs font-mono text-cyber-cyan overflow-x-auto"><code>${data.codeSnippet}</code></pre>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            playKeyClick('click');
+            document.getElementById('project-modal').classList.add('hidden');
+        }
+
+        // Live Simulated Metrics Ticker in Major Project Card
+        let liveSales = 48290.50;
+        let liveOrders = 1482;
+        setInterval(() => {
+            const add = (Math.random() * 45 + 5);
+            liveSales += add;
+            liveOrders += 1;
+            const salesEl = document.getElementById('live-sales-counter');
+            const ordersEl = document.getElementById('live-orders-counter');
+            if (salesEl) salesEl.innerText = '$' + liveSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            if (ordersEl) ordersEl.innerText = liveOrders.toLocaleString();
+        }, 3200);
+
+        // Contact Form Mailto Handler
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            playKeyClick('success');
+            const name = document.getElementById('sender-name').value;
+            const email = document.getElementById('sender-email').value;
+            const msg = document.getElementById('sender-message').value;
+
+            const subject = encodeURIComponent(`Engineering Opportunity / Message from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+
+            showToast('Opening your default mail client...');
+            window.location.href = `mailto:ivaibhavanand2018@gmail.com?subject=${subject}&body=${body}`;
+        }
+
+        // ==================== INTERACTIVE CLI TERMINAL ENGINE ====================
+        const termInput = document.getElementById('terminal-input');
+        const termOutput = document.getElementById('terminal-output');
+        const termBody = document.getElementById('terminal-body');
+
+        const commands = {
+            help: () => `
+Available terminal commands:
+  <span class="text-cyber-cyan font-bold">about</span>       : Summary of Vaibhav Anand's profile & background
+  <span class="text-cyber-cyan font-bold">skills</span>      : List categorized technical & soft skills
+  <span class="text-cyber-cyan font-bold">projects</span>    : Showcase 4 verified projects with architecture details
+  <span class="text-cyber-cyan font-bold">experience</span>  : Review AICTE-EduSkills internships & Deloitte simulation
+  <span class="text-cyber-cyan font-bold">education</span>   : Display B.Tech degree & academic institutions
+  <span class="text-cyber-cyan font-bold">contact</span>     : Display verified phone, email, and social profiles
+  <span class="text-cyber-cyan font-bold">football</span>    : Details on college sports leadership & captaincy
+  <span class="text-cyber-cyan font-bold">matrix</span>      : Trigger the green digital rain hacker visual mode
+  <span class="text-cyber-cyan font-bold">clear</span>       : Clear the console screen
+            `,
+            about: () => `
+<span class="text-white font-bold">Vaibhav Anand</span>
+------------------------------------------------------
+Role       : Full-Stack Web Developer & Java Specialist
+Degree     : B.Tech in CSE (Final Year, Expected 2027)
+College    : Bengal College of Engineering & Technology (BCET), MAKAUT
+Hometown   : Patna, Bihar | Current: Durgapur, West Bengal
+Leadership : Captain, BCET College Football Team
+Summary    : Focused on building real-world digital applications spanning 
+             Java Enterprise, MERN Stack, Python FastAPI, and WebSockets.
+            `,
+            skills: () => `
+<span class="text-cyber-neon font-bold">TECHNICAL SKILLS MATRIX:</span>
+------------------------------------------------------
+Languages  : Java (Core & Advanced), JavaScript (ES6+), Python 3.x, SQL, HTML5, CSS3
+Frontend   : React.js (JSX, Hooks, Context API, Redux Toolkit, React Router),
+             Tailwind CSS, Bootstrap, jQuery, Chart.js, Lucide Icons
+Backend    : Node.js, Express.js, Spring Framework, Spring Boot, FastAPI, WebSockets
+Databases  : MongoDB & Mongoose, PostgreSQL & Supabase, MySQL, Hibernate ORM
+Tools/Dev  : Git, GitHub, VS Code, Vite, OOP, JWT Authentication, Local Storage
+Leadership : Football Team Captaincy, Strategy Under Pressure, Collaborative Problem-Solving
+            `,
+            projects: () => `
+<span class="text-cyber-cyan font-bold">VERIFIED PROJECT PORTFOLIO:</span>
+------------------------------------------------------
+1. <span class="text-white font-bold">Real-Time Data Analytics Dashboard</span> (FastAPI, WebSockets, Supabase, Chart.js)
+   - Final Year Major Project (BCET CSE Group 17: Tanay, Riyan, Vaibhav | Guide: Mrs. Bidisha Roy)
+   - Real-time sales streaming synthesis using Python & Faker with live WebSocket dashboards.
+
+2. <span class="text-white font-bold">SAHPATHI (सहपाठी)</span> (React 18, Vite, Tailwind CSS, Web Speech API)
+   - Accessibility platform connecting visually impaired students with scribes under RPwD Act 2016.
+   - WCAG AAA High Contrast modes, voice navigation, and Form-I Scribe Undertaking generator.
+
+3. <span class="text-white font-bold">Online Doctor Appointment System (ODAS)</span> (Node.js, Express.js, MongoDB)
+   - 4 role-based dashboards (Patient, Doctor, Pharmacist, Admin) preventing double-booking.
+   - State machine: Unpaid -> Paid -> Prescribed -> Dispensed -> Reviewed.
+
+4. <span class="text-white font-bold">Personal Finance Dashboard</span> (HTML5, CSS3, JS ES6+, Chart.js)
+   - Categorical expense tracking with Local Storage persistence.
+   - GitHub: github.com/ivaibhavanand18/finance-dashboard.git
+            `,
+            experience: () => `
+<span class="text-cyber-purple font-bold">PRACTICAL EXPERIENCE & INTERNSHIPS:</span>
+------------------------------------------------------
+• <span class="text-white font-bold">MERN Full Stack Developer Intern</span> | AICTE & EduSkills (10/2026 – 12/2026, Ongoing)
+  - Ref: C19Y2026M101608516 | Student ID: STU6a80430e76ca91786790670
+  - React, Redux Toolkit, Tailwind, Node.js, Express.js, MongoDB, JWT APIs, E-Commerce Capstone.
+
+• <span class="text-white font-bold">Java Full Stack Developer Intern</span> | AICTE & EduSkills (08/2026 – 10/2026, Completed)
+  - Certificate ID: 2026-11678DF547 (Issued: Oct 06, 2026)
+  - Core/Adv Java, Spring Boot, Hibernate ORM, MySQL, JDBC, Servlets, Multi-threading.
+
+• <span class="text-white font-bold">Data Analytics Job Simulation</span> | Deloitte via Forage (Aug 13, 2026)
+  - Verification: 6a7dcf75cca7d67fa60a83ec | Data Analysis & Forensic Technology.
+            `,
+            education: () => `
+<span class="text-cyber-amber font-bold">ACADEMIC BACKGROUND:</span>
+------------------------------------------------------
+1. <span class="text-white font-bold">B.Tech in Computer Science and Engineering</span> (2023 – 2027, Final Year)
+   - Bengal College of Engineering and Technology (BCET), Durgapur, West Bengal
+   - Affiliated with Maulana Abul Kalam Azad University of Technology (MAKAUT)
+
+2. <span class="text-white font-bold">High School</span> (2020 – 2022)
+   - Himalayan Residential School, Patna, Bihar, India
+
+3. <span class="text-white font-bold">Schooling</span> (April 2008 – March 2020)
+   - Don Bosco Academy, Patna, Bihar, India
+            `,
+            contact: () => `
+<span class="text-cyber-cyan font-bold">COMMUNICATION CHANNELS:</span>
+------------------------------------------------------
+Email    : <a href="mailto:ivaibhavanand2018@gmail.com" class="text-cyber-cyan underline">ivaibhavanand2018@gmail.com</a>
+Phone    : <a href="tel:+917643975490" class="text-cyber-cyan underline">+91 76439 75490</a>
+LinkedIn : <a href="https://www.linkedin.com/in/anand-vaibhav-" target="_blank" rel="noopener noreferrer" class="text-cyber-cyan underline">linkedin.com/in/anand-vaibhav-</a>
+GitHub   : <a href="https://github.com/ivaibhavanand18" target="_blank" class="text-cyber-cyan underline">github.com/ivaibhavanand18</a>
+            `,
+            football: () => `
+<span class="text-cyber-amber font-bold">COLLEGE SPORTS LEADERSHIP:</span>
+------------------------------------------------------
+Position : Captain, BCET College Football Team
+Impact   : Leading a competitive sports squad under match pressure has imparted
+           practical skills in real-time communication, tactical agility, and
+           collaborative problem solving that mirror agile engineering teams.
+Hobbies  : Football, Photography, and Singing.
+            `,
+            clear: () => {
+                termOutput.innerHTML = '';
+                return null;
+            },
+            matrix: () => {
+                toggleMatrixRain();
+                return '<span class="text-cyber-neon font-bold">[!] Digital Rain Protocol Engaged. Click anywhere to exit.</span>';
+            }
+        };
+
+        function runCommand(cmdText) {
+            playKeyClick('click');
+            const clean = cmdText.trim().toLowerCase();
+            const line = document.createElement('div');
+            line.className = 'space-y-1';
+            line.innerHTML = `<div class="flex items-center space-x-2 text-slate-400">
+                <span class="text-cyber-cyan font-bold">vaibhav@dev:~$</span>
+                <span class="text-white font-bold">${cmdText}</span>
+            </div>`;
+
+            if (commands[clean]) {
+                const res = commands[clean]();
+                if (res) {
+                    const resDiv = document.createElement('div');
+                    resDiv.className = 'text-xs text-slate-300 leading-relaxed pl-4 border-l border-slate-700/60 my-1 font-mono';
+                    resDiv.innerHTML = res;
+                    line.appendChild(resDiv);
+                }
+            } else {
+                const errDiv = document.createElement('div');
+                errDiv.className = 'text-xs text-red-400 pl-4 font-mono';
+                errDiv.innerHTML = `command not found: "${cmdText}". Type <span class="text-cyber-cyan font-bold">help</span> for valid commands.`;
+                line.appendChild(errDiv);
+            }
+
+            termOutput.appendChild(line);
+            termBody.scrollTop = termBody.scrollHeight;
+        }
+
+        function triggerTerminalHelp() {
+            document.getElementById('terminal').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                runCommand('help');
+            }, 600);
+        }
+
+        termInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                const val = this.value;
+                if (val.trim()) {
+                    runCommand(val);
+                    this.value = '';
+                }
+            }
+        });
+
+        // ==================== MATRIX RAIN ANIMATION ====================
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let matrixInterval = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const letters = "01010101010101010101ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*+=-~{}[]<>";
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = [];
+
+        function initDrops() {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100;
+            }
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(4, 7, 17, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00FF87';
+            ctx.font = fontSize + 'px "JetBrains Mono", monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        function toggleMatrixRain() {
+            if (canvas.classList.contains('active')) {
+                canvas.classList.remove('active');
+                clearInterval(matrixInterval);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            } else {
+                canvas.classList.add('active');
+                initDrops();
+                matrixInterval = setInterval(drawMatrix, 33);
+            }
+        }
+
+        canvas.addEventListener('click', toggleMatrixRain);
+    </script>
+</body>
+
+</html>
